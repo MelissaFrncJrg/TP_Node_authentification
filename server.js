@@ -15,7 +15,7 @@ dotenv.config();
 const { APP_HOSTNAME, APP_PORT, NODE_ENV, HASH_SECRET } = process.env;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const app = express(); // Create an instance of the Express application
+const app = express();
 
 app.set("view engine", "pug");
 app.locals.pretty = NODE_ENV !== "production"; // Indente correctement le HTML envoyé au client (utile en dev, mais inutile en production)
@@ -31,7 +31,7 @@ app.use(
     name: "simple",
     secret: "simple",
     resave: false,
-    saveUninitialized: false, // changed to false to avoid creating sessions unnecessarily
+    saveUninitialized: false,
   })
 );
 
@@ -39,7 +39,7 @@ app.use(flash());
 
 app.use((req, res, next) => {
   res.locals.errors = req.flash("errors");
-  res.locals.user = req.session.user || null; // Make user available in all views
+  res.locals.user = req.session.user || null;
   next();
 });
 
